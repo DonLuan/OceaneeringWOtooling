@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela de Valores</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+
+        input {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Lançamento de Valores</h2>
+
+<table>
+    <tbody id="tabela"></tbody>
+</table>
+
+<script>
+    const linhas = 5;
+    const colunas = 5;
+    const tabela = document.getElementById('tabela');
+
+    for (let i = 0; i < linhas; i++) {
+        const tr = document.createElement('tr');
+
+        for (let j = 0; j < colunas; j++) {
+            const td = document.createElement('td');
+            const input = document.createElement('input');
+
+            const chave = `celula_${i}_${j}`;
+
+            // Carrega valor salvo
+            input.value = localStorage.getItem(chave) || '';
+
+            // Salva ao digitar
+            input.addEventListener('input', () => {
+                localStorage.setItem(chave, input.value);
+            });
+
+            td.appendChild(input);
+            tr.appendChild(td);
+        }
+
+        tabela.appendChild(tr);
+    }
+</script>
+
+</body>
+</html>
